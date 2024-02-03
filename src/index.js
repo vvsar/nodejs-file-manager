@@ -1,4 +1,4 @@
-import process from 'process';
+import { App } from './app.js';
 
 const welcome = (name) => {
   console.log(`Welcome to the File Manager, ${name}!`);
@@ -11,7 +11,13 @@ const farewell = (name) => {
 const usernameEntry = process.argv.slice(2).find((el) => el.includes('--username='));
 const username = usernameEntry ? usernameEntry.replace('--username=', '').trim() : 'anonim';
 
-welcome(username);
 process.on('exit', () => {
   farewell(username);
 });
+process.on('SIGINT', () => {
+  process.exit();
+});
+
+welcome(username);
+const app = new App();
+await app.start();

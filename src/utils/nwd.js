@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 
 // This function is to validate the path
-export const cd = async ([path]) => {
+export const cd = async (path) => {
   return fs.access(path, fs.constants.F_OK)
     .then(() => path)
     .catch(() => null)

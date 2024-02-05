@@ -36,7 +36,27 @@ export class App {
   }
 
   async cat([pathToFile]) {
-    await file.readAndPrint(this._resolvePath(pathToFile));
+    await file.readAndPrintFile(this._resolvePath(pathToFile));
+  }
+
+  async add([pathToNewFile]) {
+    await file.createFile(this._resolvePath(pathToNewFile));
+  }
+
+  async rn([pathToFile, newPathToFile]) {
+    await file.renameFile(this._resolvePath(pathToFile), this._resolvePath(newPathToFile));
+  }
+
+  async cp([pathToFile, pathToNewDir]) {
+    await file.copyFile(this._resolvePath(pathToFile), this._resolvePath(pathToNewDir));
+  }
+
+  async mv([pathToFile, pathToNewDir]) {
+    await file.moveFile(this._resolvePath(pathToFile), this._resolvePath(pathToNewDir));
+  }
+
+  async rm([pathToFile]) {
+    await file.deleteFile(this._resolvePath(pathToFile));
   }
 
   async start() {

@@ -2,7 +2,7 @@ import os from 'os';
 import path from 'path';
 import { stdin as input, stdout as output } from 'process';
 import * as readline from 'readline/promises';
-import { nwd, file, systemData } from './utils/operations.js';
+import { nwd, file, systemData, calculateHash } from './utils/operations.js';
 
 export class App {
   constructor() {
@@ -61,6 +61,10 @@ export class App {
 
   os([arg]) {
     systemData(arg);
+  }
+
+  async hash([pathToFile]) {
+    await calculateHash(this._resolvePath(pathToFile));
   }
 
   async start() {

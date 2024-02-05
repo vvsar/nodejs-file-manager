@@ -2,7 +2,8 @@ import os from 'os';
 import path from 'path';
 import { stdin as input, stdout as output } from 'process';
 import * as readline from 'readline/promises';
-import { nwd, file, systemData, calculateHash } from './utils/operations.js';
+import { nwd, file, systemData, calculateHash, brotli } from './utils/operations.js';
+import { validateInput } from './helpers/validator.js';
 
 export class App {
   constructor() {
@@ -67,19 +68,31 @@ export class App {
     await calculateHash(this._resolvePath(pathToFile));
   }
 
+  async compress([pathToFile, pathToNewFile]) {
+    await brotli.compress(this._resolvePath(pathToFile), this._resolvePath(pathToNewFile));
+  }
+
+  async decompress([pathToFile, pathToNewFile]) {
+    await brotli.decompress(this._resolvePath(pathToFile), this._resolvePath(pathToNewFile));
+  }
+
   async start() {
     const rl = readline.createInterface({ input, output });
     while(true) {
       const inputText = await rl.question(`You are currently in ${this._currentPath}\n`);
       const [command, ...args] = inputText.split(' ');
-      try {
-        this[command](args);
-      } catch (err) {
-        console.log('Operation failed!');
+      if (command === '.exit') {
+        process.exit();
       }
-      
-      
-      // break;
+      if (validateInput(command, args)) {
+        try {
+          await this[command](args);
+        } catch (err) {
+          console.log('Operation failed!');
+        }
+      } else {
+        console.log('Invalid input!');
+      }
     }
   }
 }

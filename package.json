@@ -1,0 +1,22 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "This repository is the solution of Node.js file manager task https://github.com/AlreadyBored/nodejs-assignments/tree/main/assignments/file-manager",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vvsar/nodejs-file-manager.git"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "vvsar",
+  "license": "ISC",
+  "homepage": "https://github.com/vvsar/nodejs-file-manager#readme"
+}

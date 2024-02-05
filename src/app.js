@@ -2,7 +2,7 @@ import os from 'os';
 import path from 'path';
 import { stdin as input, stdout as output } from 'process';
 import * as readline from 'readline/promises';
-import { nwd, file } from './utils/operations.js';
+import { nwd, file, systemData } from './utils/operations.js';
 
 export class App {
   constructor() {
@@ -57,6 +57,10 @@ export class App {
 
   async rm([pathToFile]) {
     await file.deleteFile(this._resolvePath(pathToFile));
+  }
+
+  os([arg]) {
+    systemData(arg);
   }
 
   async start() {

@@ -24,3 +24,7 @@ export const isFile = async (path) => {
     return false;
   }
 };
+
+export const pathExistsAndIsFile = async (path) => {
+  return (await pathExists(path)) && (await isFile(path));
+}

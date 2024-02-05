@@ -1,16 +1,23 @@
 import fs from 'fs/promises';
+import path from 'path';
+import * as check from '../helpers/checkers.js';
 
 // This function is to validate the path
-export const cd = async (path) => {
-  return fs.access(path, fs.constants.F_OK)
-    .then(() => path)
-    .catch(() => null)
-  // await fs.stats.isDirectory(path) ? null : () => {throw new Error()};
-  // return path;
+export const cd = async (pth) => {
+  if (await check.pathExists(pth)) {
+    if (await check.isDirectory(pth)) {
+      return pth;
+    } else {
+      return path.dirname(pth);
+    }
+  } else {
+    console.log('Operation failed: no such directory.');
+    return path.resolve(pth, '..');;
+  }
 };
 
-export const ls = async (path) => {
-  const content = await fs.readdir(path, { withFileTypes: true });
+export const ls = async (pth) => {
+  const content = await fs.readdir(pth, { withFileTypes: true });
   content.sort((a, b) => a.isFile() - b.isFile());
   const list = content
     .filter((el) => !el.isSymbolicLink())

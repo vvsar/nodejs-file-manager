@@ -14,23 +14,17 @@ export class App {
     return path.resolve(this._currentPath, segment);
   }
 
-  // async up() {
-  //   console.log(`--\nOld: ${this._currentPath}\n--`);
-  //   this._currentPath = await nwd.cd(this._resolvePath('..'));
-  //   console.log(`--\nNew: ${this._currentPath}\n--`);
-  // }
-
   async up() {
     this._currentPath = this._resolvePath('..');
   }
 
-  // async cd([pathToNewDir]) {
-  //   this._currentPath = await nwd.cd(this._resolvePath(pathToNewDir));
-  // }
-
   async cd([pathToNewDir]) {
-    this._currentPath = this._resolvePath(pathToNewDir);
+    this._currentPath = await nwd.cd(this._resolvePath(pathToNewDir));
   }
+
+  // async cd([pathToNewDir]) {
+  //   this._currentPath = this._resolvePath(pathToNewDir);
+  // }
 
   async ls() {
     await nwd.ls(this._currentPath);
@@ -87,7 +81,7 @@ export class App {
       if (validateInput(command, args)) {
         try {
           await this[command](args);
-        } catch (err) {
+        } catch (error) {
           console.log('Operation failed!');
         }
       } else {

@@ -10,8 +10,12 @@ export const cd = async (pth) => {
       return path.dirname(pth);
     }
   } else {
+    let newPth = path.resolve(pth, '..');
+    while (!(await check.pathExists(newPth))) {
+      newPth = path.resolve(newPth, '..');
+    }
     console.log('Operation failed: no such directory.');
-    return path.resolve(pth, '..');
+    return newPth;
   }
 };
 

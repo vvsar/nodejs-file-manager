@@ -15,5 +15,12 @@ export const isDirectory = async (path) => {
   } catch {
     return false;
   }
-  
+};
+
+export const isFile = async (path) => {
+  try {
+    return (await fs.stat(path)).isFile();
+  } catch {
+    return false;
+  }
 };

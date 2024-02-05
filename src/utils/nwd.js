@@ -2,7 +2,6 @@ import fs from 'fs/promises';
 import path from 'path';
 import * as check from '../helpers/checkers.js';
 
-// This function is to validate the path
 export const cd = async (pth) => {
   if (await check.pathExists(pth)) {
     if (await check.isDirectory(pth)) {
@@ -12,7 +11,7 @@ export const cd = async (pth) => {
     }
   } else {
     console.log('Operation failed: no such directory.');
-    return path.resolve(pth, '..');;
+    return path.resolve(pth, '..');
   }
 };
 

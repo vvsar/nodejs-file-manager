@@ -22,10 +22,6 @@ export class App {
     this._currentPath = await nwd.cd(this._resolvePath(pathToNewDir));
   }
 
-  // async cd([pathToNewDir]) {
-  //   this._currentPath = this._resolvePath(pathToNewDir);
-  // }
-
   async ls() {
     await nwd.ls(this._currentPath);
   }
